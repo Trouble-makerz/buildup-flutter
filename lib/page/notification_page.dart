@@ -12,7 +12,7 @@ class NotificationPage extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Text('알림', style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text('알림'),
         centerTitle: true,
       ),
       body: ListView(

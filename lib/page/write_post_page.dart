@@ -23,7 +23,7 @@ class _WritePostPageState extends State<WritePostPage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Text(widget.category, style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text(widget.category),
         centerTitle: true,
       ),
       body: ListView(
