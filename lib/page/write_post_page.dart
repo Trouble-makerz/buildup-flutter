@@ -31,6 +31,7 @@ class _WritePostPageState extends State<WritePostPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 widget.category == '구인/구직' ?
                   Column(
@@ -100,12 +101,15 @@ class _WritePostPageState extends State<WritePostPage> {
                     border: InputBorder.none,
                   ),
                 ),
-                Container(
-                  width: 200,
-                  padding: EdgeInsets.symmetric(vertical: 70),
-                  child: ElevatedButton(
-                    onPressed: (){},
-                    child: Text('등록하기'),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: 200,
+                    padding: EdgeInsets.symmetric(vertical: 70),
+                    child: ElevatedButton(
+                      onPressed: (){},
+                      child: Text('등록하기'),
+                    ),
                   ),
                 ),
               ],
