@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               BottomNavigationBarItem(icon: Icon(Icons.content_paste_search_outlined), label: '구직'),
               BottomNavigationBarItem(icon: Icon(Icons.forum_outlined), label: '사담'),
               BottomNavigationBarItem(icon: Icon(Icons.celebration_outlined), label: '이벤트'),
-              BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: '설정'),
+              BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: '내정보'),
             ],
             onTap: onItemTapped,
           ),
