@@ -14,7 +14,7 @@ class PostDetailPage extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Text('(구인/구직/사담)'),
+        title: Text('(구인/구직/사담)', style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       body: ListView(

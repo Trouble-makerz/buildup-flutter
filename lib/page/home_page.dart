@@ -1,11 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../screen/event_screen.dart';
 import '../screen/free_talk_screen.dart';
 import '../screen/setting_screen.dart';
 import '../screen/want_job_screen.dart';
 import '../screen/want_people_screen.dart';
+import 'notification_page.dart';
+import 'write_post_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -43,22 +46,18 @@ class _HomePageState extends State<HomePage> {
           title: Text('BUILDUP', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
           centerTitle: true,
           actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.search),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(Icons.notifications_outlined),
-            ),
+            IconButton(onPressed: (){}, icon: Icon(Icons.search)),
+            IconButton(onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const NotificationPage()),
+              );
+            }, icon: Icon(Icons.notifications_outlined)),
           ],
         ),
         drawer: Drawer(),
         body: screens[_selectedIdx],
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.add),
-        ),
+        floatingActionButton: floatingButtons(context),
         bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(20),
@@ -83,3 +82,32 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+Widget? floatingButtons(context) {
+  return SpeedDial(
+    icon: Icons.add,
+    visible: true,
+    curve: Curves.bounceIn,
+    children: [
+      SpeedDialChild(
+        child: Icon(Icons.search),
+        label: '구인/구직',
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const WritePostPage(category: '구인/구직')),
+          );
+        },
+      ),
+      SpeedDialChild(
+        child: Icon(Icons.chat),
+        label: '사담',
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const WritePostPage(category: '사담')),
+          );
+        },
+      ),
+    ],
+  );
+}
