@@ -1,4 +1,5 @@
 
+import 'package:buildup_flutter/widget/write_post_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class WritePostPage extends StatefulWidget {
@@ -12,19 +13,26 @@ class WritePostPage extends StatefulWidget {
 class _WritePostPageState extends State<WritePostPage> {
   @override
   Widget build(BuildContext context) {
-    List<String> wantTypeList = ['구인', '구직'];
-    String? selectedWantType;
+
 
     String? selectedJobType;
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Text(widget.category),
-        centerTitle: true,
+        title: Text('${widget.category} 글쓰기'),
+        actions: [
+          TextButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            child: Text('완료'),
+          )
+        ],
       ),
       body: ListView(
         children: [
@@ -33,134 +41,53 @@ class _WritePostPageState extends State<WritePostPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                widget.category == '구인/구직' ?
+               Text(widget.category, style: TextStyle(fontSize: 24),),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        child: DropdownButton(
-                          iconSize: 26,
-                          value: selectedWantType,
-                          hint: Text(
-                            selectedWantType == null
-                              ? '구인/구직'
-                              : '$selectedWantType',
-                            style: TextStyle(fontSize: 24),
-                          ),
-                          items: wantTypeList.map((String item) {
-                            return DropdownMenuItem<String>(
-                              child: Text('$item'),
-                              value: item,
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedWantType = value;
-                              print(selectedWantType);
-                            });
-                          },
-                        ),
-                      ),
                       SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Text('대상', style: TextStyle(fontSize: 18),),
-                          SizedBox(width: 50),
-                          GestureDetector(
-                            child: Row(
-                              children: [
-                                Text('기술자 / 관리자 / 보조자', style: TextStyle(fontSize: 18, color: Colors.grey),),
-                                Icon(Icons.arrow_drop_down),
-                              ],
-                            ),
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) => BottomSheet()
-                              );
-                            },
-                          )
-                        ],
-                      ),
+                      ListTile(
+                        title: Text('탭을 선택하세요'),
+                        trailing: Icon(Icons.arrow_drop_down),
+                        onTap: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                if (widget.category == '구인' || widget.category == '구직')
+                                  return WritePostBottomSheet(category: '구인/구직');
+                                else return WritePostBottomSheet(category: '사담');
+                              }
+                          );
+                        },
+                      )
                     ],
-                  )
-                : Text('사담', style: TextStyle(fontSize: 24),),
+                  ),
                 SizedBox(height: 20),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: '제목을 입력하세요',
-                    hintStyle: TextStyle(fontSize: 20),
-                    border: InputBorder.none,
-                  ),
-                ),
-                Divider(),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: '내용을 입력하세요',
-                    hintStyle: TextStyle(fontSize: 18),
-                    border: InputBorder.none,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: 200,
-                    padding: EdgeInsets.symmetric(vertical: 70),
-                    child: ElevatedButton(
-                      onPressed: (){},
-                      child: Text('등록하기'),
+                // 입력 필드
+                Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: '제목을 입력하세요',
+                        hintStyle: TextStyle(fontSize: 20),
+                        border: InputBorder.none,
+                      ),
                     ),
-                  ),
+                    Divider(),
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: '내용을 입력하세요',
+                        hintStyle: TextStyle(fontSize: 18),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-// bottom sheet
-class BottomSheet extends StatelessWidget {
-  const BottomSheet({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    List<String> jobType = ['기술자', '관리자', '보조자'];
-    List<String> jobTypeDescription = [
-      '조공 / 준기공 / 기공 / 전공 등 실제 현장 기술 담담',
-      '안전 / 품질 / 공사 등 관리 담당',
-      '화재감시 / 신호수 / 유도 등 보조업무 담당'
-    ];
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: List.generate(
-            jobType.length,
-            (index) => GestureDetector(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('${jobType[index]}', style: TextStyle(fontSize: 18),),
-                    Text('${jobTypeDescription[index]}'),
-                  ],
-                ),
-              ),
-              onTap: () {
-                print('${jobType[index]}');
-                Navigator.pop(context);
-              },
-            )
-          )
-        ),
-      ],
     );
   }
 }

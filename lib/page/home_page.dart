@@ -89,17 +89,27 @@ Widget? floatingButtons(context) {
     curve: Curves.bounceIn,
     children: [
       SpeedDialChild(
-        child: Icon(Icons.search),
-        label: '구인/구직',
+        child: Icon(Icons.person_search_outlined),
+        label: '구인',
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const WritePostPage(category: '구인/구직')),
+            MaterialPageRoute(builder: (context) => const WritePostPage(category: '구인')),
           );
         },
       ),
       SpeedDialChild(
-        child: Icon(Icons.chat),
+        child: Icon(Icons.content_paste_search_outlined),
+        label: '구직',
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const WritePostPage(category: '구직')),
+          );
+        },
+      ),
+      SpeedDialChild(
+        child: Icon(Icons.forum_outlined),
         label: '사담',
         onTap: (){
           Navigator.push(
