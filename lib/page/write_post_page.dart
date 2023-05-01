@@ -5,9 +5,11 @@ import 'package:buildup_flutter/widget/write_post_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class WritePostPage extends StatefulWidget {
-  const WritePostPage({Key? key, required this.category}) : super(key: key);
+  const WritePostPage({Key? key, required this.category, required this.typeList}) : super(key: key);
 
   final String category;
+  final Map<String, List<String>> typeList;
+
   @override
   State<WritePostPage> createState() => _WritePostPageState();
 }
@@ -55,8 +57,8 @@ class _WritePostPageState extends State<WritePostPage> {
                             context: context,
                             builder: (context) {
                               if (widget.category == '구인' || widget.category == '구직')
-                                return WritePostBottomSheet(category: '구인/구직');
-                              else return WritePostBottomSheet(category: '사담');
+                                return WritePostBottomSheet(category: '구인/구직', typeList: widget.typeList);
+                              else return WritePostBottomSheet(category: '사담', typeList: widget.typeList);
                             }
                           );
                           log('selectedJobType $selectedType');

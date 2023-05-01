@@ -19,6 +19,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var _selectedIdx = 0;
+  Map<String, List<String>> typeList = {
+    '구인/구직' : ['기술자', '관리자', '보조자'],
+    '사담' : ['자유', '매매', '건설업', '조선업'],
+  };
 
   List<Widget> screens = [
     WantPeopleScreen(),
@@ -57,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         ),
         drawer: Drawer(),
         body: screens[_selectedIdx],
-        floatingActionButton: floatingButtons(context),
+        floatingActionButton: floatingButtons(context, typeList),
         bottomNavigationBar: ClipRRect(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(20),
@@ -82,7 +86,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget? floatingButtons(context) {
+Widget? floatingButtons(context, typeList) {
   return SpeedDial(
     icon: Icons.add,
     visible: true,
@@ -94,7 +98,7 @@ Widget? floatingButtons(context) {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const WritePostPage(category: '구인')),
+            MaterialPageRoute(builder: (context) => WritePostPage(category: '구인', typeList: typeList)),
           );
         },
       ),
@@ -104,7 +108,7 @@ Widget? floatingButtons(context) {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const WritePostPage(category: '구직')),
+            MaterialPageRoute(builder: (context) => WritePostPage(category: '구직', typeList: typeList)),
           );
         },
       ),
@@ -114,7 +118,8 @@ Widget? floatingButtons(context) {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const WritePostPage(category: '사담')),
+            MaterialPageRoute(builder: (context) => WritePostPage(category: '사담', typeList: typeList)),
+
           );
         },
       ),
