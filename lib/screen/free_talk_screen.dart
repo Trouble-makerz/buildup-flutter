@@ -18,6 +18,7 @@ class FreeTalkScreen extends StatefulWidget {
 class _FreeTalkScreenState extends State<FreeTalkScreen> {
 
   RefreshController refreshController = RefreshController(initialRefresh: false);
+  int _selectedTabIndex = 0; // 선택된 탭 인덱스
 
   // 새로고침
   void onRefresh() async {
@@ -27,50 +28,57 @@ class _FreeTalkScreenState extends State<FreeTalkScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('${widget.tabList}');
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      body: PageView.builder(
-        itemCount: widget.tabList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Scaffold(
-            backgroundColor: Colors.grey[200],
-            body: Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.tabList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ElevatedButton(
-                        onPressed: () {
-                          setState(() {});
-                        },
-                        child: Text(widget.tabList[index]),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: SmartRefresher(
-                    controller: refreshController,
-                    enablePullDown: true,
-                    onRefresh: onRefresh,
-                    header: WaterDropHeader(),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return PostItem();
-                        }
+      body: Column(
+        children: [
+          SizedBox(
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.tabList.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: _selectedTabIndex == index ? Colors.white : Colors.black,
+                        backgroundColor: _selectedTabIndex == index ? Colors.blue : Colors.white,
+                        textStyle: TextStyle(fontSize: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _selectedTabIndex = index; // 탭 인덱스 업데이트
+                        });
+                      },
+                      child: Text(index == 0 ? '전체' : widget.tabList[index-1]),
                     ),
-                  ),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
-          );
-        },
+          ),
+          Expanded(
+            child: SmartRefresher(
+              controller: refreshController,
+              enablePullDown: true,
+              onRefresh: onRefresh,
+              header: WaterDropHeader(),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return PostItem();
+                }
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

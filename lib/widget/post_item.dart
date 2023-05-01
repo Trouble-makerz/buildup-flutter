@@ -9,7 +9,7 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(bottom: 16.0, left: 8, right: 8),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
