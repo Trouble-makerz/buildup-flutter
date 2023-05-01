@@ -43,7 +43,7 @@ class WritePostBottomSheet extends StatelessWidget {
                 subtitle: category != '사담' ? Text('${jobTypeDescription[index]}') : null,
                 onTap: () {
                   log('${type[index]}');
-                  Navigator.pop(context);
+                  Navigator.pop(context, type[index]);
                 },
               ),
             )

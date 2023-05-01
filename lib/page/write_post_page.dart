@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:buildup_flutter/widget/write_post_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +13,11 @@ class WritePostPage extends StatefulWidget {
 }
 
 class _WritePostPageState extends State<WritePostPage> {
+
+  String? selectedType;
+
   @override
   Widget build(BuildContext context) {
-
-
-    String? selectedJobType;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,17 +48,19 @@ class _WritePostPageState extends State<WritePostPage> {
                     children: [
                       SizedBox(height: 12),
                       ListTile(
-                        title: Text('탭을 선택하세요'),
+                        title: Text(selectedType == null ? '탭을 선택하세요' : selectedType!),
                         trailing: Icon(Icons.arrow_drop_down),
-                        onTap: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                if (widget.category == '구인' || widget.category == '구직')
-                                  return WritePostBottomSheet(category: '구인/구직');
-                                else return WritePostBottomSheet(category: '사담');
-                              }
+                        onTap: () async {
+                          selectedType = await showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              if (widget.category == '구인' || widget.category == '구직')
+                                return WritePostBottomSheet(category: '구인/구직');
+                              else return WritePostBottomSheet(category: '사담');
+                            }
                           );
+                          log('selectedJobType $selectedType');
+                          setState(() { });
                         },
                       )
                     ],
