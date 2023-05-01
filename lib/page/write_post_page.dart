@@ -40,11 +40,10 @@ class _WritePostPageState extends State<WritePostPage> {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               Text(widget.category, style: TextStyle(fontSize: 24),),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -69,24 +68,27 @@ class _WritePostPageState extends State<WritePostPage> {
                   ),
                 SizedBox(height: 20),
                 // 입력 필드
-                Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: '제목을 입력하세요',
-                        hintStyle: TextStyle(fontSize: 20),
-                        border: InputBorder.none,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: '제목을 입력하세요',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: InputBorder.none,
+                        ),
                       ),
-                    ),
-                    Divider(),
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: '내용을 입력하세요',
-                        hintStyle: TextStyle(fontSize: 18),
-                        border: InputBorder.none,
+                      Divider(),
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: '내용을 입력하세요',
+                          hintStyle: TextStyle(fontSize: 16),
+                          border: InputBorder.none,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
