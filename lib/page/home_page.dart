@@ -24,14 +24,6 @@ class _HomePageState extends State<HomePage> {
     '사담' : ['자유', '매매', '건설업', '조선업'],
   };
 
-  List<Widget> screens = [
-    WantPeopleScreen(),
-    WantJobScreen(),
-    FreeTalkScreen(),
-    EventScreen(),
-    SettingScreen(),
-  ];
-
   onItemTapped(int index) {
     setState(() {
       _selectedIdx = index;
@@ -40,6 +32,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> screens = [
+      WantPeopleScreen(tabList: typeList['구인/구직']!),
+      WantJobScreen(tabList: typeList['구인/구직']!),
+      FreeTalkScreen(tabList: typeList['사담']!),
+      EventScreen(),
+      SettingScreen(),
+    ];
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey[200],

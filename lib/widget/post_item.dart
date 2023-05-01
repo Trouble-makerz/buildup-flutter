@@ -40,7 +40,7 @@ class PostItem extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Text('작성자 ㆍ 10분 전 ㆍ 조회 32'),
+                  child: Text('작성자 ㆍ 10분 전 ㆍ 조회 32', style: TextStyle(color: Colors.grey)),
                 )
               ],
             ),
