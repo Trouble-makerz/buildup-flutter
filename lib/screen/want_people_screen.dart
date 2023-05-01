@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:buildup_flutter/widget/post_item.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class WantPeopleScreen extends StatefulWidget {
   const WantPeopleScreen({Key? key, required this.tabList}) : super(key: key);
@@ -14,7 +15,14 @@ class WantPeopleScreen extends StatefulWidget {
 }
 
 class _WantPeopleScreenState extends State<WantPeopleScreen> {
-  int _currentPageIndex = 0;
+
+  RefreshController refreshController = RefreshController(initialRefresh: false);
+
+  // 새로고침
+  void onRefresh() async {
+    setState(() {});
+    refreshController.refreshCompleted();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +46,18 @@ class _WantPeopleScreenState extends State<WantPeopleScreen> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return PostItem();
-              }
+            child: SmartRefresher(
+              controller: refreshController,
+              enablePullDown: true,
+              onRefresh: onRefresh,
+              header: WaterDropHeader(),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return PostItem();
+                }
+              ),
             ),
           ),
         ],

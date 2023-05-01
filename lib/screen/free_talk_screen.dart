@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../widget/post_item.dart';
 
@@ -15,6 +16,15 @@ class FreeTalkScreen extends StatefulWidget {
 }
 
 class _FreeTalkScreenState extends State<FreeTalkScreen> {
+
+  RefreshController refreshController = RefreshController(initialRefresh: false);
+
+  // 새로고침
+  void onRefresh() async {
+    setState(() {});
+    refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     log('${widget.tabList}');
@@ -43,12 +53,18 @@ class _FreeTalkScreenState extends State<FreeTalkScreen> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return PostItem();
-                    }
+                  child: SmartRefresher(
+                    controller: refreshController,
+                    enablePullDown: true,
+                    onRefresh: onRefresh,
+                    header: WaterDropHeader(),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return PostItem();
+                        }
+                    ),
                   ),
                 ),
               ],

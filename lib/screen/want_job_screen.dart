@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:buildup_flutter/widget/post_item.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class WantJobScreen extends StatefulWidget {
   const WantJobScreen({Key? key, required this.tabList}) : super(key: key);
@@ -14,6 +15,15 @@ class WantJobScreen extends StatefulWidget {
 }
 
 class _WantJobScreenState extends State<WantJobScreen> {
+
+  RefreshController refreshController = RefreshController(initialRefresh: false);
+
+  // 새로고침
+  void onRefresh() async {
+    setState(() {});
+    refreshController.refreshCompleted();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +46,18 @@ class _WantJobScreenState extends State<WantJobScreen> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return PostItem();
-                }
+            child: SmartRefresher(
+              controller: refreshController,
+              enablePullDown: true,
+              onRefresh: onRefresh,
+              header: WaterDropHeader(),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return PostItem();
+                  }
+              ),
             ),
           ),
         ],
