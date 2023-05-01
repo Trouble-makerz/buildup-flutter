@@ -89,13 +89,17 @@ class _HomePageState extends State<HomePage> {
 
 Widget? floatingButtons(context, typeList) {
   return SpeedDial(
+    overlayColor: Colors.black.withOpacity(0.5),
     icon: Icons.add,
     visible: true,
     curve: Curves.bounceIn,
     children: [
       SpeedDialChild(
         child: Icon(Icons.person_search_outlined),
-        label: '구인',
+        labelWidget: Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Text('구인', style: TextStyle(fontSize: 16, color: Colors.white)),
+        ),
         onTap: (){
           Navigator.push(
             context,
@@ -105,7 +109,10 @@ Widget? floatingButtons(context, typeList) {
       ),
       SpeedDialChild(
         child: Icon(Icons.content_paste_search_outlined),
-        label: '구직',
+        labelWidget: Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Text('구직', style: TextStyle(fontSize: 16, color: Colors.white)),
+        ),
         onTap: (){
           Navigator.push(
             context,
@@ -115,12 +122,14 @@ Widget? floatingButtons(context, typeList) {
       ),
       SpeedDialChild(
         child: Icon(Icons.forum_outlined),
-        label: '사담',
+        labelWidget: Padding(
+          padding: const EdgeInsets.only(right: 16.0),
+          child: Text('사담', style: TextStyle(fontSize: 16, color: Colors.white)),
+        ),
         onTap: (){
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => WritePostPage(category: '사담', typeList: typeList)),
-
           );
         },
       ),
